@@ -1,0 +1,213 @@
+/* 全局样式与背景 */
+body {
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #87CEEB, #E6E6FA);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 控制面板 */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.8);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background: #4a6fa5;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #3b5a8a;
+}
+
+button:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+input[type="number"] {
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 60px;
+}
+
+/* 消息提示 */
+.message {
+    height: 30px;
+    margin: 10px 0;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+.message.show {
+    opacity: 1;
+}
+
+.message.error {
+    color: #ff4444;
+    animation: shakeWarning 0.3s ease-in-out;
+}
+
+.message.success {
+    color: #ffd700;
+    font-size: 1.2em;
+}
+
+/* 游戏棋盘（3D透视） */
+.board {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 350px;
+    perspective: 1000px;
+    padding: 20px;
+    background: rgba(139, 119, 101, 0.3);
+    border-radius: 10px;
+}
+
+/* 柱子样式 */
+.peg {
+    width: 20px;
+    height: 250px;
+    background: linear-gradient(to right, #8B4513, #D2B48C, #8B4513);
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transform-style: preserve-3d;
+}
+
+.peg::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    width: 100px;
+    height: 15px;
+    background: linear-gradient(to bottom, #8B4513, #5D3A1A);
+    border-radius: 5px;
+    transform: rotateX(60deg);
+}
+
+/* 圆盘样式 */
+.disk {
+    height: 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.disk:hover {
+    transform: translateY(-5px);
+}
+
+.disk.selected {
+    transform: translateY(-20px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+/* 圆盘颜色渐变 */
+.disk-1 { background: linear-gradient(to bottom, #ff6b6b, #ee5a5a); width: 60px; }
+.disk-2 { background: linear-gradient(to bottom, #ffd93d, #e6c329); width: 80px; }
+.disk-3 { background: linear-gradient(to bottom, #6bcb77, #5ab866); width: 100px; }
+.disk-4 { background: linear-gradient(to bottom, #4d96ff, #3c85ee); width: 120px; }
+.disk-5 { background: linear-gradient(to bottom, #9b59b6, #8e44ad); width: 140px; }
+.disk-6 { background: linear-gradient(to bottom, #e67e22, #d35400); width: 160px; }
+.disk-7 { background: linear-gradient(to bottom, #1abc9c, #16a085); width: 180px; }
+.disk-8 { background: linear-gradient(to bottom, #34495e, #2c3e50); width: 200px; }
+
+/* 关键帧动画（完全符合你的要求） */
+@keyframes shakeWarning {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+}
+
+@keyframes glowWin {
+    0%, 100% { box-shadow: 0 0 10px #ffd700; }
+    50% { box-shadow: 0 0 30px #ffd700, 0 0 50px #ffd700; }
+}
+
+@keyframes diskFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+    100% { transform: translateY(0); }
+}
+
+.disk.win {
+    animation: glowWin 0.8s infinite;
+}
+
+.disk.floating {
+    animation: diskFloat 0.5s ease-in-out;
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+    }
+
+    .board {
+        height: 300px;
+    }
+
+    .peg {
+        height: 200px;
+    }
+
+    .disk-1 { width: 40px; }
+    .disk-2 { width: 60px; }
+    .disk-3 { width: 80px; }
+    .disk-4 { width: 100px; }
+    .disk-5 { width: 120px; }
+    .disk-6 { width: 140px; }
+    .disk-7 { width: 160px; }
+    .disk-8 { width: 180px; }
+}
