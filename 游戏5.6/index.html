@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Tower of Hanoi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>3D Tower of Hanoi</h1>
+
+        <!-- 控制面板 -->
+        <div class="controls">
+            <div class="control-group">
+                <label for="diskCount">Disks (3-8):</label>
+                <input type="number" id="diskCount" min="3" max="8" value="5">
+            </div>
+            <div class="control-group">
+                <button id="resetBtn">Reset</button>
+                <button id="autoSolveBtn">Auto Solve</button>
+            </div>
+            <div class="control-group">
+                <p>Moves: <span id="moveCounter">0</span></p >
+            </div>
+        </div>
+
+        <!-- 警告/胜利提示 -->
+        <div id="message" class="message"></div>
+
+        <!-- 游戏棋盘 -->
+        <div class="board">
+            <div class="peg" id="peg-0" data-peg="0"></div>
+            <div class="peg" id="peg-1" data-peg="1"></div>
+            <div class="peg" id="peg-2" data-peg="2"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
